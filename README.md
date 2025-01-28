@@ -11,7 +11,8 @@
 аккумулятор
 плата заряда аккумулятора
 
-![Uploading изображение.png…]()
+![изображение](https://github.com/user-attachments/assets/2f42c738-d2bf-44ac-8042-3e2b4aad31fd)
+
 
 
 состояния:
