@@ -5,7 +5,7 @@ const int LED13 = 13;
 int Threshold = 550;
 PulseSensorPlayground pulseSensor;
  
- [1](https://arduino-kit.ru/blogs/blog/project_24)
+//  [1](https://arduino-kit.ru/blogs/blog/project_24)
 #include "I2Cdev.h"
 #include "MPU6050.h"
 #include "Wire.h"
@@ -19,7 +19,7 @@ int16_t gx, gy, gz;
 #include <Adafruit_ADXL345_U.h>
 #include <MPU6050.h>
 //----------------------
-#include "TM1637Display.h"
+#include "TM1637Display.h" //avishorp
 TM1637Display display(3, 2);  // CLC, DIO
 
 //----------------------------
@@ -33,15 +33,16 @@ LiquidCrystal lcd(7, 6, 5, 4, 3, 2);  // устанавливает контак
 
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
 MPU6050 mpu;
-
+int Signal;     
 void puls(){
-  int myBPM = pulseSensor.getBeatsPerMinute();
-  if (pulseSensor.sawStartOfBeat()) {
-    Serial.println("Heartbeat detected!");
-    Serial.print("BPM: ");
-    Serial.println(myBPM);
-  }
-  delay(20);
+    Signal = analogRead(PulseWire); // чтение данных с сенсора 
+    Serial.println(Signal); 
+    if (Signal > Threshold){ 
+        Serial.println("Жив");
+    } else {
+        Serial.println("Не совсем Жив");
+    } 
+    delay(10); 
 }
 
 //ослеживани воды
@@ -57,87 +58,86 @@ void vivod(int a){
 
 
 
-kPin[2]={0,0}
-k[2]={0,0}
+int kPin[2]={0,0};
+int k[2]={0,0};
+int k_s= sizeof(k)/sizeof(k[0]);
 
 
 void knop(int a){
   if (digitalRead(kPin[a])==0){
-    k[a]==1
+    k[a]==1;
   }
 }
 
 
 void reset(){ 
- for (a=1; a<#k; a++){
-    k[a]=0
+ for (int a=1; a<k_s; a++){
+    k[a]=0;
   }
 }
 void setup() {
   //----------
-  Wire.begin();
-  Serial.begin(38400);
   // инициализация
-  Serial.println("Initializing I2C devices...");
-  accelgyro.initialize();
-  delay(100);  
+  // Serial.println("Initializing I2C devices...");
+  // accelgyro.initialize();
+  // delay(100);  
   //----------pulse sensor
    pinMode(LED13, OUTPUT);
-  Serial.begin(9600)
+  Serial.begin(9600);
 //-----------
-    Serial.begin(9600);
-    if (!accel.begin()) {
-        Serial.println("No ADXL345 detected");
-        while (1);
-    }
-    mpu.initialize();
+    // if (!accel.begin()) {
+    //     Serial.println("No ADXL345 detected");
+    //     while (1);
+    // }
+    // mpu.initialize();
   //----------
-display.setBrightness(4);  // яркость от 0 до 7, true/false
-  display.clear();
+// display.setBrightness(4);  // яркость от 0 до 7, true/false
+//   display.clear();
   //----------------
-     int s=0
+     int s=0;
   //----------------
 }
 
 
 void loop() {  // Задание на включение разделителя
-  //тригеры
-  knop();
-  for (a=1; a<#k; a++){
-    if (k[a]==1){
-       s=1+a
-    }
-  }
+  puls();
+//   //тригеры
+//   knop();
+//   for (a=1; a<#k; a++){
+//     if (k[a]==1){
+//        s=1+a
+//     }
+//   }
 
 
-// реакции
+// // реакции
 
 
-//   0. сон
-  if s==0 (){
+// //   0. сон
+//   if s==0 (){
 
-  }
- // 1. сбор данных
-  if s==1 (){
-     puls();
+//   }
+//  // 1. сбор данных
+//   if s==1 (){
+//      puls();
 
-  }
-//  2.пульс
-  if s==2 (){
+//   }
+// //  2.пульс
+//   if s==2 (){
      
-  }
-  //  3. ВОда
-  if s==2 (){
+//   }
+//   //  3. ВОда
+//   if s==2 (){
      
-  }
- // 4. вывод данных на дисплей
-  if s==3 (){
+//   }
+//  // 4. вывод данных на дисплей
+//   if s==3 (){
 
-  }
- //5. разряжен
-  if s==4 (){
+//   }
+//  //5. разряжен
+//   if s==4 (){
 
-  }
+//   }
 }
 
 
